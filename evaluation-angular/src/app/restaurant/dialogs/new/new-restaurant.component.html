@@ -1,0 +1,62 @@
+<div fxLayout="row" fxLayoutAlign="space-evenly center">
+    <mat-progress-spinner mode="indeterminate" color="warn" *ngIf="isLoading" ></mat-progress-spinner>
+</div>
+<div *ngIf="!isLoading">
+    <div class="container">
+        <form [formGroup]="newRestaurantForm" (ngSubmit)="newRestaurant()" fxLayout="column" fxLayoutAlign="center center">
+    
+            <h3>Créer un restaurant</h3>
+            <div class="form-group">
+                <div *ngIf="err" class="text-warn">
+                    {{ err.name }}
+                </div>
+                <mat-form-field appearance="outline">
+                    <mat-label>
+                        Entrer un nom du restaurant
+                        <span class="text-danger fw-bold fs-5" *ngIf="newRestaurantForm.controls['name'].hasError('required')">
+                            *
+                        </span>
+                    </mat-label>
+                    <input matInput placeholder="Entrez un nom" formControlName="name">
+                    <mat-error [hidden]="newRestaurantForm.controls['name'].untouched || newRestaurantForm.controls['name'].valid">
+                        Veuillez renseigner nom de restaurant
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <mat-form-field appearance="outline">
+                <mat-label>
+                    Entrer une spécialité du restaurant
+                </mat-label>
+                <input matInput placeholder="Entrez une spécialité" formControlName="specialite">
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>
+                    Mettre le lien de votre image
+                </mat-label>
+                <input matInput placeholder="Metrre l'url de l'image" formControlName="image">
+            </mat-form-field> 
+            <mat-form-field appearance="outline">
+                <mat-label>Chien accepté</mat-label>
+                <mat-select>
+                  <mat-option value="0">Non</mat-option>
+                  <mat-option value="1">Oui</mat-option>
+                </mat-select>
+              </mat-form-field>
+
+
+
+            <div class="form-group">
+                <div *ngIf="err" class="text-warn">
+                    {{ err.name }}
+                </div>
+            </div>
+            
+            <div fxLayout="row" fxLayoutAlign="center center">
+                <button mat-flat-button color="warn" type="submit"   [disabled]="newRestaurantForm.invalid" >Valider</button>
+                <button mat-button mat-dialog-close class="button-close">Annuler</button>
+            </div>
+        </form>
+    
+    </div>
+</div>

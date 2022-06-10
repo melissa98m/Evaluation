@@ -1,0 +1,21 @@
+
+<div>
+  <div class="grid-container">
+    <h1 fxLayoutAlign="center center">Mon Compte</h1>
+    <div class="media-position" fxLayout="row wrap" fxLayoutAlign="space-around center">
+      <div class="media-column" fxFlex="50" fxLayout="column" fxLayoutAlign="space-between center" >
+        <div class="info" >
+          <div *ngIf="currentUser">
+            <h2 class="title-margin1">Mes informations personnelles</h2>
+            <p><strong>Nom</strong> : {{ currentUser.lastname }}</p><p><strong>Prénom</strong> : {{ currentUser.firstname}} </p>
+            <p><strong>Mon adresse mail</strong>: {{ currentUser.username }}</p>
+            <button mat-flat-button color="warn" (click)="modifyPasswordDialog(currentUser.id)" *ngIf="currentUser">Modifier votre mot de passe</button>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+    <div>
+      </div>
+    </div>
+

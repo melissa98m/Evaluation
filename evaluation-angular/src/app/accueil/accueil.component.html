@@ -1,0 +1,61 @@
+<section>
+  <div *ngIf="logged == true">
+    <div class="container">
+      <div fxLayout="row" fxLayoutAlign="space-evenly center">
+        <button mat-flat-button class="mat-warn" [style.width]="'220px'" routerLink="/profile/{{user.id}}">VOIR MON COMPTE</button>
+        <button mat-flat-button class="mat-warn"[style.width]="'220px'" routerLink="/restaurants">Voir les restaurants</button>
+        <button mat-flat-button class="mat-warn"[style.width]="'220px'" routerLink="/monuments">Voir les monuments</button>
+      </div>
+    </div>
+
+    <div *ngIf="monuments">
+    <div class="container">
+      <h2 class="text-warn">
+          Dernier Monuments ajoutés
+      </h2>
+      <div fxLayout="row" fxLayoutAlign="space-evenly">
+        <mat-card class="mat-card-primary bg-theme" *ngFor="let monument of monuments.slice(0,4)" >
+          <mat-card-title class="text-theme">{{ monument.name | titlecase }}</mat-card-title>
+          <span *ngIf="monument.image">
+            <img src="{{monument.image}}" style="max-width:200px;"><
+          </span>
+         <span *ngIf="!monument.image" style="max-width:200px;"><mat-progress-spinner class="margin mat-warn"   [mode]="mode" [value]="value"></mat-progress-spinner></span>
+          <mat-card-actions>
+            <a href="/monuments/{{monument.id}}"><button mat-button class="mat-warn no-margin border-button">Voir plus de détails</button></a>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </div>
+    </div>
+
+    <div *ngIf="restaurants">
+    <div class="container">
+      <h2 class="text-warn">
+          Dernier Restaurants ajoutés
+      </h2>
+      <div fxLayout="row" fxLayoutAlign="space-evenly">
+        <mat-card class="mat-card-primary bg-theme" *ngFor="let restaurant of restaurants.slice(0,4)">
+          <span *ngIf="!restaurant">Pas de restaurants trouvés</span>
+          <mat-card-title class="text-theme">{{restaurant.name | titlecase }}</mat-card-title>
+          <span *ngIf="restaurant.image">
+            <img src="{{restaurant.image}}" style="max-width:200px;">
+          </span>
+         <span *ngIf="!restaurant.image" style="max-width:200px;"><mat-progress-spinner class="margin mat-warn"   [mode]="mode" [value]="value"></mat-progress-spinner></span>
+          <mat-card-actions>
+            <a href="/restaurants/{{restaurant.id}}"><button mat-button class="mat-warn no-margin border-button">Voir plus de détails</button></a>
+          </mat-card-actions>
+        </mat-card>    
+    </div>
+    </div>
+    </div>
+  </div>
+  <div *ngIf="logged != true">
+    <div class="container" style="display: flex; align-items: center ; justify-content: center;"> 
+    <div>
+    <img src="assets/img/logos/logo.svg" width='200rem' alt="logo">
+    <p>Vous n'étez pas connecter vous n'avez donc pas accés au site</p>
+    <button mat-flat-button class="mat-warn"[style.width]="'220px'" routerLink="/login">Connecter vous ici</button>
+</div>
+    </div>
+  </div>
+</section>

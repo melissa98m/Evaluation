@@ -1,0 +1,41 @@
+<div fxLayout="row" fxLayoutAlign="space-evenly center">
+    <mat-progress-spinner mode="indeterminate" color="warn" *ngIf="isLoading" ></mat-progress-spinner>
+</div>
+
+
+<div *ngIf="!isLoading">
+    <div class="container">
+        <form [formGroup]="newMonumentForm" (ngSubmit)="newMonument()" fxLayout="column" fxLayoutAlign="center center">
+
+            <h3>Créer un Monument</h3>
+            <div class="form-group">
+                <div *ngIf="err" class="text-warn">
+                    {{ err.name }}
+                </div>
+                <mat-form-field appearance="outline">
+                    <mat-label>
+                        Entrer un nom du monument
+                        <span class="text-danger fw-bold fs-5" *ngIf="newMonumentForm.controls['name'].hasError('required')">
+                            *
+                        </span>
+                    </mat-label>
+                    <input matInput placeholder="Entrez un nom" formControlName="name">
+                    <mat-error [hidden]="newMonumentForm.controls['name'].untouched || newMonumentForm.controls['name'].valid">
+                        Veuillez renseigner nom de monument
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <mat-form-field appearance="outline">
+                <mat-label>
+                    Mettre le lien de votre image
+                </mat-label>
+                <input matInput placeholder="Metrre l'url de l'image" formControlName="image">
+            </mat-form-field> 
+            <div fxLayout="row" fxLayoutAlign="center center">
+                <button mat-flat-button color="warn" type="submit" [disabled]="newMonumentForm.invalid" >Valider</button>   
+                <button mat-button mat-dialog-close class="button-close">Annuler</button>
+            </div>
+        </form>
+        
+    </div>
+</div>

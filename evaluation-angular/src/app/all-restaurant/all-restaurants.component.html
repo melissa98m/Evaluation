@@ -1,0 +1,53 @@
+
+<div *ngIf="!isLoading">
+    <div fxLayout="row" fxLayoutAlign="space-evenly center">
+        <h2 class="text-warn" [style.margin-bottom]="'50px'">
+            Tous les restaurants
+          </h2>
+    </div>
+
+    <!-- affiche mes dropsdown restaurant et tag -->
+    <div fxLayout="row" fxLayoutAlign="space-evenly center" fxLayout.lt-sm="column"
+         fxLayoutAlign.lt-sm="space-between center">
+        <form class="example-form" (ngSubmit)="newSearch()" [formGroup]="searchForm">
+          <mat-form-field class="example-full-width" appearance="fill">
+              <mat-label>Rechercher un restaurant ...</mat-label>
+              <input matInput placeholder="Rechercher un restaurant ..." formControlName="search">
+          </mat-form-field>
+        </form>
+      </div>
+    <div fxLayout="row" fxLayoutAlign="space-evenly center" *ngIf="recherche">
+        <h2 class="margin-title">
+            Restaurant : {{recherche}}
+          </h2>
+    </div>
+    <!-- affiche les restaurants -->
+    <div class="container" >
+      
+      <div fxLayout="row" fxLayoutAlign="space-evenly">
+        <mat-card class="mat-card-primary bg-theme" *ngFor="let restaurant of restaurants.slice(lowValue,highValue)">
+          <mat-card-title class="text-theme">{{restaurant.name | titlecase }}</mat-card-title>
+          <span *ngIf="restaurant.image">
+          <img src="{{restaurant.image}}" alt="{{restaurant.name}}" width="250px">
+        </span>
+         <span *ngIf="!restaurant.image">Pas d'image</span>
+          <mat-card-actions>
+            <mat-card-subtitle *ngIf="restaurant.specialite">Specialité: {{restaurant.specialite}}</mat-card-subtitle>
+            <mat-card-subtitle>Chien acceptés: <span *ngIf="restaurant.chien == 1" style="color:green">
+              Oui</span>
+              <span *ngIf="restaurant.chien == 0" style="color:red"> Non</span>
+            </mat-card-subtitle>
+             
+            <a href="/restaurants/{{restaurant.id}}"><button mat-button class="mat-warn no-margin border-button">Voir plus de détails</button></a>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </div>
+      <div class="aucun-resultat" *ngIf="restaurants.length < 1">
+        <h2>Aucun restaurant  !</h2>
+      </div>
+      <mat-paginator [length]="restaurants.length" [pageSize]="pageSize"
+      (page)="getPaginatorData($event)">
+  </mat-paginator>
+
+</div>

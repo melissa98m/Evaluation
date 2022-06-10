@@ -1,0 +1,69 @@
+.img-techno {
+  display: flex;
+  width: 35%;
+  max-height: 25px;
+  max-width: 40px;
+  margin-right: 15px;
+}
+
+.tech {
+  display: flex;
+  width: 65%;
+}
+
+@media (max-width: 1200px) {
+  .icon {
+    display: flex;
+    width: 30%;
+  }
+
+  .tech {
+    display: flex;
+    width: 70%;
+  }
+}
+
+.no-margin {
+  margin-right: 0 !important;
+  margin-left: 0 !important;
+}
+
+.border-button {
+  border: 1px solid #CE0033;
+}
+
+.border-button-green {
+  border: 1px solid #4FAA45;
+}
+
+mat-card-title{
+  height: 40px !important;
+  max-height: 40px !important;
+}
+
+/* Redimentionne les techno en 1 colonne centré */
+@media (max-width: 427px) {
+  .img-techno {
+    width: 50%;
+  }
+
+  .tech {
+    width: 50% !important;
+  }
+}
+
+/* Redimentionne les vidéos */
+@media (max-width: 321px) {
+  .video-xs {
+    min-height: 130px !important;
+    width: 260px !important;
+  }
+}
+
+/* Redimentionne les vidéos */
+@media (min-width: 321px) and (max-width: 376px) {
+  .video-xs {
+    min-height: 140px !important;
+    width: 280px !important;
+  }
+}

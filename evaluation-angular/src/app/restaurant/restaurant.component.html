@@ -1,0 +1,65 @@
+<div class="container">
+    <div>
+        <button mat-flat-button color="warn" (click)="newDialog()">Créer un restaurant</button>
+    </div>
+    <mat-grid-list cols="4" rowHeight="fit" colHeight="fit" gutterSize="10px" style="height: 700px">
+        <mat-grid-tile rowspan="1" colspan="1">
+            <div fxLayout="column">
+                <h3>Filtres</h3>
+                <mat-form-field appearance="fill">
+                    <mat-label>Rechercher ...</mat-label>
+                    <input matInput #input placeholder="Monument, Restaurant ...">
+                </mat-form-field>
+            </div>
+        </mat-grid-tile>
+        
+        <mat-grid-tile rowspan="1" colspan="3" >
+            <div fxLayout="row" fxLayoutAlign="space-evenly center">
+                <mat-progress-spinner mode="indeterminate" color="warn" *ngIf="isLoading"></mat-progress-spinner>
+            </div>
+
+            <div *ngIf="!isLoading">
+                <table mat-table class="mat-elevation-z8 bg-theme text-theme tableStripe w-100" [dataSource]="restaurants">
+                    <!-- Id Column -->
+                    <ng-container matColumnDef="id" class="">
+                        <th mat-header-cell *matHeaderCellDef> ID </th>
+                        <td mat-cell *matCellDef="let restaurants">
+                            <div *ngIf="restaurants.id">{{ restaurants.id }}</div>
+                        </td>
+                    </ng-container>
+                    <!-- Name Column -->
+                    <ng-container matColumnDef="name">
+                        <th mat-header-cell *matHeaderCellDef> NOM </th>
+                        <td mat-cell *matCellDef="let restaurants">
+                            <div *ngIf="restaurants.name">{{restaurants.name }}</div>
+                        </td>
+                    </ng-container>
+                    <!-- icone Column -->
+                    <ng-container matColumnDef="image">
+                        <th mat-header-cell *matHeaderCellDef> Image </th>
+                        <td mat-cell *matCellDef="let restaurants">
+                            <div *ngIf="restaurants.image"><img src="{{restaurants.image}}" style="height: 40px;"></div>
+                        </td>
+                    </ng-container>
+                    <!-- Options Column -->
+                    <ng-container matColumnDef="options">
+                        <th mat-header-cell *matHeaderCellDef class="text-end">
+                            <mat-icon>more_vert</mat-icon>
+                        </th>
+                        <td mat-cell *matCellDef="let restaurants" class="text-end">
+                            <a (click)="updateDialog(restaurants.id, restaurants.name)">
+                                <mat-icon> border_color</mat-icon>
+                            </a>
+                            <a (click)="deleteDialog(restaurants.id, restaurants.name)">
+                                <mat-icon>delete</mat-icon>
+                            </a>
+                        </td>
+                    </ng-container>
+                    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+                </table>
+                <mat-paginator [length]="CateLength" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page" class="bg-theme text-theme"></mat-paginator>
+            </div>
+        </mat-grid-tile>
+    </mat-grid-list>
+</div>

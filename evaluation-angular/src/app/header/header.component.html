@@ -1,0 +1,53 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row fxLayout="row" fxLayoutAlign="space-between">
+    <div fxLayout="row" fxLayoutAlign="center center">
+      <div *ngIf="logged == true">
+        <button fxLayoutAlign="center" mat-icon-button [matMenuTriggerFor]="menu"> <mat-icon >menu</mat-icon> </button>
+        <mat-menu #menu="matMenu">
+          <button class="size-menu-deroulant color-text" mat-menu-item routerLink="accueil">Accueil</button>
+          <button class="size-menu-deroulant color-text" mat-menu-item routerLink="restaurants">Tous les restaurants</button>
+          <button class="size-menu-deroulant color-text" mat-menu-item routerLink="monuments">Tous les monuments</button>
+          <button class="size-menu-deroulant color-text" mat-menu-item routerLink="histoire">Histoire de Grenoble</button>
+          <button class="size-menu-deroulant color-text" mat-menu-item routerLink="admin"  [matMenuTriggerFor]="admin">Administration</button>
+        </mat-menu>
+        <mat-menu #admin="matMenu">
+          <button class="size-menu-deroulant color-text" mat-menu-item routerLink="admin/restaurant">Restaurants</button>
+          <button class="size-menu-deroulant color-text" mat-menu-item routerLink="admin/monument">Monuments</button>
+          <button class="size-menu-deroulant color-text" mat-menu-item routerLink="admin/user">Utilisateurs</button>
+        </mat-menu>
+      </div>
+      <h1 fxHide.xs>{{ title }}</h1>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="center center">
+      <div class="inline-profil-search" *ngIf="logged == true">
+        <a mat-button routerLink="/profile/{{ user.id }}">
+          <mat-icon  color="accent" matBadgeSize="small" class="warn">
+            account_circle
+          </mat-icon>
+        </a>
+        <button class="align-search" mat-icon-button (click)="openSearch()"><mat-icon>search</mat-icon></button>
+      </div>
+      <a *ngIf="!this.authService.isLoggedIn" routerLinkActive="active" routerLink="/login">Se connecter</a>
+      <a href="#" class="align-search" (click)="logout()" *ngIf="this.authService.isLoggedIn">
+        <mat-icon class="logo-exit">exit_to_app</mat-icon></a>
+      <button mat-flat-button class="mat-warn bouton-exit" (click)="logout()" *ngIf="this.authService.isLoggedIn"
+              type="button">Se déconnecter</button>
+    </div>
+  </mat-toolbar-row>
+
+</mat-toolbar>
+<div fxLayout="row" fxLayoutAlign="space-between center" class="small-container">
+    <div fxLayout="row" fxLayoutAlign="center center" class="text-warn">
+        <div>
+            <h2 *ngIf="logged == true">
+                Bonjour {{ user.firstname | titlecase }}
+            </h2>
+            <button mat-flat-button class="mat-warn" (click)="back()">Retour</button>
+        </div>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+        <mat-icon class="sunny">wb_sunny</mat-icon>
+        <mat-slide-toggle (click)="onSwitch()" id="darkMode" [checked]="checked"></mat-slide-toggle>
+        <mat-icon class="moon">shield_moon</mat-icon>
+    </div>
+</div>

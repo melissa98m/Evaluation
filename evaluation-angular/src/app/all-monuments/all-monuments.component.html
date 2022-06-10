@@ -1,0 +1,46 @@
+<div *ngIf="!isLoading">
+    <div fxLayout="row" fxLayoutAlign="space-evenly center">
+        <h2 class="text-warn" [style.margin-bottom]="'50px'">
+            Tous les monuments
+          </h2>
+    </div>
+
+    <!-- affiche mes dropsdown monument et tag -->
+    <div fxLayout="row" fxLayoutAlign="space-evenly center" fxLayout.lt-sm="column"
+         fxLayoutAlign.lt-sm="space-between center">
+        <form class="example-form" (ngSubmit)="newSearch()" [formGroup]="searchForm">
+          <mat-form-field class="example-full-width" appearance="fill">
+              <mat-label>Rechercher un monument ...</mat-label>
+              <input matInput placeholder="Rechercher un monument ..." formControlName="search">
+          </mat-form-field>
+        </form>
+      </div>
+    <div fxLayout="row" fxLayoutAlign="space-evenly center" *ngIf="recherche">
+        <h2 class="margin-title">
+            monument : {{recherche}}
+          </h2>
+    </div>
+    <!-- affiche les monuments -->
+    <div class="container" >
+      
+      <div fxLayout="row" fxLayoutAlign="space-evenly">
+        <mat-card class="mat-card-primary bg-theme" *ngFor="let monument of monuments.slice(lowValue , highValue)">
+          <mat-card-title class="text-theme">{{monument.name | titlecase }}</mat-card-title>
+          <span *ngIf="monument.image">
+            <img src="{{monument.image}}" alt="{{monument.name}}" width="250px">
+          </span>
+           <span *ngIf="!monument.image">Pas d'image</span>
+          <mat-card-actions>
+            <a href="/monuments/{{monument.id}}"><button mat-button class="mat-warn no-margin border-button">Voir plus de détails</button></a>
+          </mat-card-actions>
+        </mat-card>
+      </div>
+    </div>
+      <div class="aucun-resultat" *ngIf="monuments.length < 1">
+        <h2>Aucun monument  !</h2>
+      </div>
+      <mat-paginator [length]="monuments.length" [pageSize]="pageSize"
+      (page)="getPaginatorData($event)">
+  </mat-paginator>
+</div>
+
